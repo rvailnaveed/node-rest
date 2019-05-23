@@ -1,2 +1,2 @@
 # node-rest
-RESTful API practise in Node.js
+RESTful API in Node.js
