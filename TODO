@@ -1,4 +1,11 @@
-body-parser
-morgan
-handling CORS
-add mongodb Atlas db
+body-parser --done
+
+morgan --done
+
+Handling CORS --done
+
+Add mongodb Atlas --done
+
+Add mongoose integration --done
+
+Update orders.js dummy code
