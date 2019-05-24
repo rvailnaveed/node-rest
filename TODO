@@ -9,3 +9,5 @@ Add mongodb Atlas --done
 Add mongoose integration --done
 
 Update orders.js dummy code
+
+Better responses in products.js -- done
