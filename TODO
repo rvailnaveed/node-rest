@@ -1,0 +1,4 @@
+body-parser
+morgan
+handling CORS
+add mongodb Atlas db
