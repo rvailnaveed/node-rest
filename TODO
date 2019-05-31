@@ -11,3 +11,5 @@ Add mongoose integration --done
 Update orders.js dummy code
 
 Better responses in products.js -- done
+
+multer for image upload --done

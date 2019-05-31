@@ -12,6 +12,7 @@ mongoose.connect('mongodb+srv://rvail:' + process.env.MONGO_PW + '@node-rest-qjs
 });
 
 app.use(morgan('dev'));
+app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
