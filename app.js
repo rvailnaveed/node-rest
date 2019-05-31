@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 
 const productRoutes = require('./api/routes/products');
 const orderRoutes = require('./api/routes/orders');
+const userRoutes = require('./api/routes/users');
 
 mongoose.connect('mongodb+srv://rvail:' + process.env.MONGO_PW + '@node-rest-qjsrc.mongodb.net/test?retryWrites=true', {
     useNewUrlParser: true
@@ -33,6 +34,7 @@ app.use((req, res, next) => {
 // Routes for handling requests
 app.use('/products', productRoutes);
 app.use('/orders', orderRoutes);
+app.use('/users', userRoutes);
 
 // If this part of code reached, then no routes could handle request
 app.use((req, res, next) => {
