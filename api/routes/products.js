@@ -5,17 +5,17 @@ const Product = require('../models/product');
 const multer = require('multer');
 
 const storage = multer.diskStorage({
-    destination: function(req, file, cb){
+    destination: function (req, file, cb) {
         cb(null, './uploads/');
     },
-    filename: function(req, file, cb){
+    filename: function (req, file, cb) {
         cb(null, Date.now() + file.originalname);
     }
 });
 
 const fileFilter = (req, file, cb) => {
     // reject a file
-    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png'){
+    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
         cb(null, true);
     } else {
         cb(null, false);
@@ -23,7 +23,7 @@ const fileFilter = (req, file, cb) => {
 };
 
 const upload = multer({
-    storage: storage, 
+    storage: storage,
     limits: {
         fileSize: 1024 * 1024 * 5
     },
@@ -96,29 +96,29 @@ router.post('/', upload.single('productImage'), (req, res, next) => {
 router.get('/:productId', (req, res, next) => {
     const id = req.params.productId;
     Product.findById(id)
-    .select('name price _id prouctImage')
-    .exec()
-    .then(doc => {
-        console.log('From Database', doc);
-        if (doc) {
-            res.status(200).json({
-                product: doc,
-                request: {
-                    type: 'GET',
-                    url: 'http://localhost:3000/products'
-                }
-            });
+        .select('name price _id prouctImage')
+        .exec()
+        .then(doc => {
+            console.log('From Database', doc);
+            if (doc) {
+                res.status(200).json({
+                    product: doc,
+                    request: {
+                        type: 'GET',
+                        url: 'http://localhost:3000/products'
+                    }
+                });
 
-        } else {
-            res.status(404).json({
-                message: 'No valid entry for id'
-            });
-        }
-    })
-    .catch(err => {
-        console.log(err);
-        res.status(500).json({ error: err });
-    });
+            } else {
+                res.status(404).json({
+                    message: 'No valid entry for id'
+                });
+            }
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({ error: err });
+        });
 });
 
 // Update properties of existing product
@@ -159,7 +159,7 @@ router.delete('/:productId', (req, res, next) => {
                 request: {
                     type: 'POST',
                     url: 'http://localhost:3000/products',
-                    body: { name: 'String', price: 'Number'}
+                    body: { name: 'String', price: 'Number' }
                 }
             })
         })
