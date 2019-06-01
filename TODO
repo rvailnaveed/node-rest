@@ -8,8 +8,12 @@ Add mongodb Atlas --done
 
 Add mongoose integration --done
 
-Update orders.js dummy code
+Update orders.js dummy code --done
 
-Better responses in products.js -- done
+Better responses in products.js --done
 
 multer for image upload --done
+
+User login?
+
+JSON Web Token(JWT) signing

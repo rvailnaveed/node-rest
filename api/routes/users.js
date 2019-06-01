@@ -2,11 +2,13 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const User = require('../models/user');
+
 
 router.post('/signup', (req, res, next) => {
     // First check if user exists to avoid overwrite 
-    // Use findOne() and not find() becuase find() returns an array which would make 'if(user)' = true upon empty array
+    // Use findOne() and not find() becuase find() returns an array which would make 'if(user)' = true with empty array
     User.findOne({ email: req.body.email })
         .exec()
         .then(user => {
@@ -46,8 +48,51 @@ router.post('/signup', (req, res, next) => {
         })
 });
 
+router.post('/login', (req, res, next) => {
+    User.findOne({ email: req.body.email })
+        .exec()
+        .then(user => {
+            if (!user) {
+                return res.status(401).json({
+                    message: 'Authentication failed'
+                });
+            } // else
+            bcrypt.compare(req.body.password, user.password, (err, result) => {
+                if (err) {
+                    return res.status(401).json({
+                        message: 'Authentication failed'
+                    });
+                }
+                if (result) {
+                    const token = jwt.sign(
+                        {
+                            email: user.email,
+                            userId: user._id
+                        },
+                        process.env.JWT_KEY,
+                        {
+                            expiresIn: "1h"
+                        }
+                    );
+                    return res.status(200).header('x-auth', token).json({
+                        message: 'Authentication successful',
+                    });
+                }
+                res.status(401).json({
+                    message: 'Authentication failed'
+                });
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
+        });
+});
+
 router.delete('/:userId', (req, res, next) => {
-    User.deleteOne({_id: req.params.userId})
+    User.deleteOne({ _id: req.params.userId })
         .exec()
         .then(result => {
             res.status(200).json({
