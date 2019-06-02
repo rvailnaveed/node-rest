@@ -14,6 +14,10 @@ Better responses in products.js --done
 
 multer for image upload --done
 
-User login?
+User login? --done
 
-JSON Web Token(JWT) signing
+JSON Web Token(JWT) signing --done
+
+Add route protection --done
+
+A user who is authenticated can delete another users orders, needs fixing!!
